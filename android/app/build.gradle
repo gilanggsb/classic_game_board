@@ -20,10 +20,10 @@ def flutterVersionName = localProperties.getProperty('flutter.versionName')
 if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
-def keyStoreProperties = new Properties()
-def keyStorePropertiesFile = rootProject.file('key.properties')
-if(keyStorePropertiesFile.exists()){
-    keyStoreProperties.load(new FileInputStream(keyStorePropertiesFile))
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if(keystorePropertiesFile.exists()){
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
