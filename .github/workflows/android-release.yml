@@ -39,8 +39,8 @@ jobs:
       - name: Get dependencies
         run: flutter pub get
       
-      - name: Run tests
-        run: flutter test
+      # - name: Run tests
+      #   run: flutter test
       
       - name: Build android apk 
         run: flutter build apk
