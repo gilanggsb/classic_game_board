@@ -16,13 +16,7 @@ jobs:
   # 5
   build:
     # 6
-    name: Build ${{matrix.target}}
     runs-on: ubuntu-latest
-    strategy: 
-      fail-fast: false
-      matrix:
-        target: ["apk --debug", "ios --no-codesign"]
-
     # 7
     steps:
       # 8
