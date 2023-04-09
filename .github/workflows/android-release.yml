@@ -70,6 +70,7 @@ jobs:
       
       - name: Firebase App Distribution
         uses: hasretsariyer/firebase-app-distribution-github-action@v1
+        with:  
           app_id: ${{secrets.FIREBASE_APP_ID}}
           firebase_token: ${{secrets.FIREBASE_TOKEN}}
           app_file: build/app/outputs/bundle/release/app-release-signed.aab
