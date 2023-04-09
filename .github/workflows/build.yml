@@ -16,7 +16,12 @@ jobs:
   # 5
   build:
     # 6
+    name: Build ${{matrix.target}}
     runs-on: ubuntu-latest
+    strategy: 
+      fail-fast: false
+      matrix:
+        target: ["apk --debug", "ios --no-codesign"]
 
     # 7
     steps:
@@ -50,25 +55,17 @@ jobs:
 
       - name: Get dependencies
         run: flutter pub get
-      
-      # - name: Run tests
-      #   run: flutter test
-      
-      # - name: Build android apk 
-      #   run: flutter build apk
+
       
       # Runs a set of commands using the runners shell
-      - name: Build Android App Bundle
-        run: flutter build appbundle --release
-      
-      - name: Sign Android App Bundle
-        run: jarsigner -keystore $RUNNER_TEMP/my_production.keystore -storepass ${{ secrets.KEYSTORE_PASSWORD }} -keypass ${{ secrets.KEYSTORE_PASSWORD_ALIAS }} -sigalg SHA256withRSA -digestalg SHA-256 -signedjar build/app/outputs/bundle/release/app-release-signed.aab build/app/outputs/bundle/release/*.aab tictactoe
+      - name: Build android apk 
+        run: flutter build  apk --obfuscate --split-debug-info=./split-debug-info-development  --split-per-abi
 
       - name: Publish Android Artefacts
         uses: actions/upload-artifact@v1
         with:
-          name: release-aab-signed
-          path: build/app/outputs/bundle/release/app-release-signed.aab
+          name: release-apk
+          path: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
       
       - name: Firebase App Distribution
         uses: wzieba/Firebase-Distribution-Github-Action@v1
@@ -76,4 +73,4 @@ jobs:
           appId: ${{secrets.FIREBASE_APP_ID}}
           serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
           groups: developers
-          file: build/app/outputs/bundle/release/app-release-signed.aab
+          file: build/app/outputs/flutter-apk/app-arm64-v8a-release.apk
