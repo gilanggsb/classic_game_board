@@ -67,3 +67,10 @@ jobs:
         with:
           name: release-aab-signed
           path: build/app/outputs/bundle/release/app-release-signed.aab
+      
+      - name: Firebase App Distribution
+        uses: hasretsariyer/firebase-app-distribution-github-action@v1
+          app_id: ${{secrets.FIREBASE_APP_ID}}
+          firebase_token: ${{secrets.FIREBASE_TOKEN}}
+          app_file: build/app/outputs/bundle/release/app-release-signed.aab
+          tester_groups: developers
