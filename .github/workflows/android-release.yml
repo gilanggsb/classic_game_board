@@ -14,7 +14,7 @@ on:
 # 4
 jobs:    
   # 5
-  build_android:
+  build:
     # 6
     runs-on: ubuntu-latest
 
