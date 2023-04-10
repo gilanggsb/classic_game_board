@@ -17,15 +17,6 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-
-      - name: Update node version
-        run: npm install n -g
-
-      - name: Save state
-        run: echo "{name}={value}" >> $GITHUB_STATE
-
-      - name: Set output
-        run: echo "{name}={value}" >> $GITHUB_OUTPUT
       
       - name: Fetch all history for all tags and branches
         run: |
@@ -55,15 +46,25 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout the code
-        uses: actions/checkout@v3
-        with:
-          set-safe-directory: '*'
+      - name: Update node version
+        run: npm install n -g
+
+      - name: Save state
+        run: echo "{name}={value}" >> $GITHUB_STATE
+
+      - name: Set output
+        run: echo "{name}={value}" >> $GITHUB_OUTPUT
 
       - name: Get version.txt
         uses: actions/download-artifact@v2
         with:
           name: gitversion
+      
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          set-safe-directory: '*'
+
       
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
