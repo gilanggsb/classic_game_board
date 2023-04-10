@@ -8,10 +8,6 @@ on:
 
   workflow_dispatch:
 
-runs:
-  using: 'node16'
-  main: 'github-action-runtime/index.js'
-
 jobs: 
   # 1
   version:
@@ -21,6 +17,9 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
+
+      - name: Update node version
+        uses: npm install n -g
 
       - name: Save state
         run: echo "{name}={value}" >> $GITHUB_STATE
