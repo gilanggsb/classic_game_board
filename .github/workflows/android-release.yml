@@ -8,6 +8,10 @@ on:
 
   workflow_dispatch:
 
+runs:
+  using: 'node16'
+  main: 'github-action-runtime/index.js'
+
 jobs: 
   # 1
   version:
@@ -17,7 +21,7 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - uses: actions/checkout@v3
-      
+
       - name: Fetch all history for all tags and branches
         run: |
           git fetch --prune --depth=10000
@@ -46,9 +50,11 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Update node version
-        run: npm install n -g
-
+      - name: Checkout the code
+        uses: actions/checkout@v3
+        with:
+          set-safe-directory: '*'
+      
       - name: Save state
         run: echo "{name}={value}" >> $GITHUB_STATE
 
@@ -59,12 +65,6 @@ jobs:
         uses: actions/download-artifact@v2
         with:
           name: gitversion
-      
-      - name: Checkout the code
-        uses: actions/checkout@v3
-        with:
-          set-safe-directory: '*'
-
       
       - name: Create new file without newline char from version.txt
         run: tr -d '\n' < version.txt > version1.txt
