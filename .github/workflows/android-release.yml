@@ -8,10 +8,6 @@ on:
 
   workflow_dispatch:
 
-runs:
-  using: 'node16'
-  main: 'github-action-runtime/index.js'
-
 jobs: 
   # 1
   version:
