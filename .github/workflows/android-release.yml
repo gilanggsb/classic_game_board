@@ -80,9 +80,9 @@ jobs:
       - name: Create key.properties
         run: |
           echo "storeFile=${{steps.android_keystore.outputs.filePath}}" > android/key.properties
-          echo "storePassword=${{secrets.KEYSTORE_STORE_PASSWORD}}" > android/key.properties
-          echo "keyPassword=${{secrets.KEYSTORE_PASSWORD}}" > android/key.properties
-          echo "keyAlias=${{secrets.KEYSTORE_KEY_ALIAS}}" > android/key.properties
+          echo "storePassword=${{secrets.KEYSTORE_STORE_PASSWORD}}" >> android/key.properties
+          echo "keyPassword=${{secrets.KEYSTORE_PASSWORD}}" >> android/key.properties
+          echo "keyAlias=${{secrets.KEYSTORE_KEY_ALIAS}}" >> android/key.properties
 
       - name: Setup Java to compile Android project
         uses: actions/setup-java@v3
@@ -111,10 +111,10 @@ jobs:
           name: android-release
           path: build/app/outputs/bundle/release/app-release.aab
       
-      # - name: Firebase App Distribution
-      #   uses: wzieba/Firebase-Distribution-Github-Action@v1
-      #   with:  
-      #     appId: ${{secrets.FIREBASE_APP_ID}}
-      #     serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
-      #     groups: developers
-      #     file: build/app/outputs/bundle/release/app-release.aab
+      - name: Firebase App Distribution
+        uses: wzieba/Firebase-Distribution-Github-Action@v1
+        with:  
+          appId: ${{secrets.FIREBASE_APP_ID}}
+          serviceCredentialsFileContent: ${{secrets.CREDENTIAL_FILE_CONTENT}}
+          groups: developers
+          file: build/app/outputs/bundle/release/app-release.aab
