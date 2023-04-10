@@ -10,7 +10,7 @@ on:
 
 jobs:    
   build:
-    name: Create Android
+    name: Create Android Build
     needs: version
     runs-on: ubuntu-latest
 
