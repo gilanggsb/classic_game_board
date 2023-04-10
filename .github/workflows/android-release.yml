@@ -18,6 +18,10 @@ jobs:
     steps:
       - uses: actions/checkout@v3
 
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
+
       - name: Fetch all history for all tags and branches
         run: |
           git fetch --prune --depth=10000
@@ -35,7 +39,7 @@ jobs:
         run: echo ${{ steps.gitversion.outputs.nuGetVersion  }} > version.txt
       # 4
       - name: Upload version.txt
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: gitversion
           path: version.txt  
@@ -51,14 +55,12 @@ jobs:
         with:
           set-safe-directory: '*'
       
-      - name: Save state
-        run: echo "{name}={value}" >> $GITHUB_STATE
-
-      - name: Set output
-        run: echo "{name}={value}" >> $GITHUB_OUTPUT
+      - uses: actions/setup-node@v3
+        with:
+          node-version: '14'
 
       - name: Get version.txt
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: gitversion
       
