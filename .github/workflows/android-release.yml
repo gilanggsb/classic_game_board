@@ -11,7 +11,7 @@ on:
 jobs:    
   build:
     name: Create Android Build
-    needs: version
+    # needs: version
     runs-on: ubuntu-latest
 
     steps:
