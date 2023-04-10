@@ -108,7 +108,7 @@ jobs:
         run: flutter build appbundle --release --obfuscate --split-debug-info=./split-debug-info-release
       
       - name: Publish Android Artifacts
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v3
         with:
           name: android-release
           path: |
