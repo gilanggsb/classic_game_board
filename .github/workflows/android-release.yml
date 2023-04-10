@@ -18,7 +18,10 @@ jobs:
     runs-on: ubuntu-latest
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - uses: actions/checkout@v3
+      # - uses: actions/checkout@v3
+      - checkout: self
+        fetchDepth: 0
+        clean: true
       # 2
       - name: Install GitVersion
         uses: gittools/actions/gitversion/setup@v0.9.7
